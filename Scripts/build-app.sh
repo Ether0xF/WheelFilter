@@ -4,11 +4,13 @@ set -euo pipefail
 project_dir="${0:A:h:h}"
 configuration="${1:-release}"
 build_dir="$project_dir/.build/$configuration"
-module_cache="$project_dir/.build/ModuleCache"
+module_cache="$(mktemp -d "${TMPDIR:-/tmp}/wheelfilter-module-cache.XXXXXX")"
 output_dir="$project_dir/outputs"
 app_dir="$output_dir/Wheel Filter.app"
 contents_dir="$app_dir/Contents"
 source_dir="$project_dir/Sources/WheelFilter"
+
+trap 'rm -rf "$module_cache"' EXIT
 
 sdk_path="$(xcrun --sdk macosx --show-sdk-path)"
 clang_path="$(xcrun --find clang)"
