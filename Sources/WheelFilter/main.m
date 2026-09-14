@@ -2,7 +2,6 @@
 #import <ApplicationServices/ApplicationServices.h>
 #import "WheelDebouncer.h"
 
-static NSString *const WFDefaultsSuite = @"com.uroboros.WheelFilter";
 static NSString *const WFEnabledKey = @"filterEnabled";
 static NSString *const WFDebounceKey = @"debounceMilliseconds";
 static NSString *const WFTargetsKey = @"targetApplications";
@@ -168,7 +167,11 @@ static CGEventRef WFEventTapCallback(
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
     [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
 
-    _defaults = [[NSUserDefaults alloc] initWithSuiteName:WFDefaultsSuite];
+    // Use the application's normal preferences domain. Foundation explicitly
+    // rejects passing the current bundle identifier to initWithSuiteName:;
+    // doing so left _defaults nil, so Enable and Add Game were silent no-ops.
+    _defaults = NSUserDefaults.standardUserDefaults;
+    NSCAssert(_defaults != nil, @"Wheel Filter preferences must be available");
     [_defaults registerDefaults:@{
         WFEnabledKey: @YES,
         WFDebounceKey: @50,

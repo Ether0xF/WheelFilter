@@ -44,4 +44,6 @@ open "outputs/Wheel Filter.app"
 
 The menu shows the remembered foreground app, current filter state, master switch, debounce threshold, and configured games. Settings persist between launches.
 
+Version 0.1.1 fixes a preferences-domain bug that caused **Enable Wheel Filter** and **Add This App as a Game** to silently do nothing in version 0.1.0.
+
 After rebuilding, macOS may require the old Wheel Filter entry to be removed and the rebuilt app to be enabled again in **System Settings → Privacy & Security → Accessibility**.
