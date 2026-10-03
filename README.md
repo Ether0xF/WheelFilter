@@ -137,4 +137,4 @@ This project uses AI coding tools to assist with implementation, refactoring, an
 
 ## License
 
-[MIT](LICENSE), copyright © 2026 uroboros.
+[MIT](LICENSE), copyright © 2026 Ether0xF.

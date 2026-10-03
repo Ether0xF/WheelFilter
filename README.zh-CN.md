@@ -98,4 +98,4 @@ open "outputs/Wheel Filter.app"
 
 ## 开源协议
 
-[MIT](LICENSE)，Copyright © 2026 uroboros。
+[MIT](LICENSE)，Copyright © 2026 Ether0xF。
