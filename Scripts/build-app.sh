@@ -3,6 +3,10 @@ set -euo pipefail
 
 project_dir="${0:A:h:h}"
 configuration="${1:-release}"
+if [[ "$configuration" != "release" && "$configuration" != "debug" ]]; then
+    echo "Usage: $0 [release|debug]" >&2
+    exit 2
+fi
 build_dir="$project_dir/.build/$configuration"
 module_cache="$(mktemp -d "${TMPDIR:-/tmp}/wheelfilter-module-cache.XXXXXX")"
 output_dir="$project_dir/outputs"
@@ -43,6 +47,8 @@ common_flags=(
 
 "$clang_path" "${common_flags[@]}" "${optimization[@]}" \
     "$source_dir/WheelDebouncer.m" \
+    "$source_dir/WFEventFilter.m" \
+    "$source_dir/WFAppDelegate.m" \
     "$source_dir/main.m" \
     -framework AppKit \
     -framework ApplicationServices \
